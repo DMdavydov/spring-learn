@@ -5,6 +5,8 @@
   Time: 14:03
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -23,6 +25,8 @@
 </div>
 
 <div id="container">
+    User: <security:authentication property="principal.username" />
+    Roles: <security:authentication property="principal.authorities" />
     <h3>Save Customer</h3>
     <form:form action="saveCustomer" modelAttribute="customer" method="post">
         <form:hidden path="id"/>
@@ -52,5 +56,8 @@
         <a href="${pageContext.request.contextPath}/customer/list">Back to List</a>
     </p>
 </div>
+<form:form action="${pageContext.request.contextPath}/logout" method="post">
+    <input type="submit" value="Logout"/>
+</form:form>
 </body>
 </html>
