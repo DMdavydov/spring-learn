@@ -22,13 +22,15 @@
 </div>
 
 <div id="container">
-    User: <security:authentication property="principal.username" />;
-    Roles: <security:authentication property="principal.authorities" />
+    User: <security:authentication property="principal.username"/>;
+    Roles: <security:authentication property="principal.authorities"/>
     <div id="content">
-        <input type="button" value="Add Customer"
-               onclick="window.location.href='showFormForAdd'; return false;"
-               class="add-button"
-        />
+        <security:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+            <input type="button" value="Add Customer"
+                   onclick="window.location.href='showFormForAdd'; return false;"
+                   class="add-button"
+            />
+        </security:authorize>
         <table>
             <tr>
                 <th>First name</th>
@@ -48,10 +50,12 @@
                     <td> ${customer.lastName} </td>
                     <td> ${customer.email} </td>
                     <td>
-                        <a href="${updateLink}">Update</a>
-                        |
-                        <a href="${deleteLink}"
-                           onclick="if (!(confirm('Are you sure you want to delete?'))) return false">Delete</a>
+                        <security:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+                            <a href="${updateLink}">Update</a>
+                            |
+                            <a href="${deleteLink}"
+                               onclick="if (!(confirm('Are you sure you want to delete?'))) return false">Delete</a>
+                        </security:authorize>
                     </td>
                 </tr>
             </c:forEach>
