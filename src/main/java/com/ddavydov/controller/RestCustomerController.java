@@ -1,6 +1,7 @@
 package com.ddavydov.controller;
 
 import com.ddavydov.entity.Customer;
+import com.ddavydov.exception.CustomerNotFoundException;
 import com.ddavydov.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +29,11 @@ public class RestCustomerController {
 
     @GetMapping("/{customerId}")
     public Customer showForm(@PathVariable("customerId") int id) {
-        return customerService.getCustomer(id);
+        Customer customer = customerService.getCustomer(id);
+        if (customer == null) {
+            throw new CustomerNotFoundException("Customer not found - " + id);
+        }
+        return customer;
     }
 
     @PostMapping
@@ -38,14 +43,18 @@ public class RestCustomerController {
         return customer;
     }
 
-    @PutMapping("/{customerId}")
-    public Customer showFormForUpdate(@PathVariable("customerId") int id, @RequestBody Customer customer) {
+    @PutMapping
+    public Customer showFormForUpdate(@RequestBody Customer customer) {
         customerService.saveCustomer(customer);
         return customer;
     }
 
     @DeleteMapping("/{customerId}")
     public void delete(@PathVariable("customerId") int id) {
+        Customer customer = customerService.getCustomer(id);
+        if (customer == null) {
+            throw new CustomerNotFoundException("Customer not found - " + id);
+        }
         customerService.deleteCustomer(id);
     }
 }

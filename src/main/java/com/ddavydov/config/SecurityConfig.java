@@ -28,6 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/customer/list").hasAnyRole("ADMIN", "MANAGER", "EMPLOYEE")
                 .antMatchers("/customer/**").hasAnyRole("ADMIN", "MANAGER")
+                .antMatchers("/api/customers/**").hasAnyRole("ADMIN", "MANAGER")
+                .and()
+                .httpBasic()
                 .and()
                 .formLogin()
                 .loginPage("/showLoginPage")
@@ -37,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().permitAll()
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/access-denied");
+                .accessDeniedPage("/access-denied")
+                .and();
     }
 }
