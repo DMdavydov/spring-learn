@@ -24,7 +24,7 @@ public class LoggingAspect {
     public void forServicePackage() {
     }
 
-    @Pointcut("execution(* com.ddavydov.dao.*.*(..))")
+    @Pointcut("execution(* com.ddavydov.repository.*.*(..))")
     public void forDaoPackage() {
     }
 

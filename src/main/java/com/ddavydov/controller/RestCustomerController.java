@@ -1,7 +1,6 @@
 package com.ddavydov.controller;
 
 import com.ddavydov.entity.Customer;
-import com.ddavydov.exception.CustomerNotFoundException;
 import com.ddavydov.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,38 +22,29 @@ public class RestCustomerController {
     private final CustomerService customerService;
 
     @GetMapping
-    public List<Customer> listCustomers() {
+    public List<Customer> getCustomers() {
         return customerService.getCustomers();
     }
 
     @GetMapping("/{customerId}")
-    public Customer showForm(@PathVariable("customerId") int id) {
-        Customer customer = customerService.getCustomer(id);
-        if (customer == null) {
-            throw new CustomerNotFoundException("Customer not found - " + id);
-        }
-        return customer;
+    public Customer getCustomer(@PathVariable("customerId") Long id) {
+        return customerService.getCustomer(id);
     }
 
     @PostMapping
     public Customer saveCustomer(@RequestBody Customer customer) {
-        customer.setId(0);
+        customer.setId(0L);
         customerService.saveCustomer(customer);
         return customer;
     }
 
     @PutMapping
-    public Customer showFormForUpdate(@RequestBody Customer customer) {
-        customerService.saveCustomer(customer);
-        return customer;
+    public Customer updateCustomer(@RequestBody Customer customer) {
+        return customerService.saveCustomer(customer);
     }
 
     @DeleteMapping("/{customerId}")
-    public void delete(@PathVariable("customerId") int id) {
-        Customer customer = customerService.getCustomer(id);
-        if (customer == null) {
-            throw new CustomerNotFoundException("Customer not found - " + id);
-        }
+    public void deleteCustomer(@PathVariable("customerId") Long id) {
         customerService.deleteCustomer(id);
     }
 }

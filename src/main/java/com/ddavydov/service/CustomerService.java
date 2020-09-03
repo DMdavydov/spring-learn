@@ -1,16 +1,33 @@
 package com.ddavydov.service;
 
 import com.ddavydov.entity.Customer;
+import com.ddavydov.exception.CustomerNotFoundException;
+import com.ddavydov.repository.CustomerRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface CustomerService {
+@Service
+@RequiredArgsConstructor
+public class CustomerService {
 
-    List<Customer> getCustomers();
+    private final CustomerRepository customerRepository;
 
-    void saveCustomer(Customer customer);
+    public List<Customer> getCustomers() {
+        return customerRepository.findAll();
+    }
 
-    Customer getCustomer(int id);
+    public Customer getCustomer(Long id) {
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found, id - " + id));
+    }
 
-    void deleteCustomer(int id);
+    public Customer saveCustomer(Customer customer) {
+        return customerRepository.save(customer);
+    }
+
+    public void deleteCustomer(Long id) {
+        customerRepository.deleteById(id);
+    }
 }
