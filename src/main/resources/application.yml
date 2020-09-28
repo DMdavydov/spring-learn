@@ -1,6 +1,12 @@
 server:
   port: 9090
 
+info:
+  app:
+    name: CRM
+    description: learning spring
+    version: 1.0.0
+
 spring:
   jpa:
     hibernate:
@@ -9,4 +15,12 @@ spring:
     url: jdbc:mysql://localhost:3306/web_customer_tracker?useSSL=false&serverTimezone=UTC
     username: springstudent
     password: springstudent
+  data:
+    rest:
+      base-path: "/api"
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

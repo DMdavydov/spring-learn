@@ -1,6 +1,7 @@
 package com.ddavydov.aspect;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,10 +12,9 @@ import org.springframework.stereotype.Component;
 import java.util.logging.Logger;
 
 @Aspect
+@Slf4j
 @Component
 public class LoggingAspect {
-
-    private final Logger logger = Logger.getLogger(getClass().getName());
 
     @Pointcut("execution(* com.ddavydov.controller.*.*(..))")
     public void forControllerPackage() {
@@ -36,12 +36,12 @@ public class LoggingAspect {
     public void before(JoinPoint joinPoint) {
 
         String method = joinPoint.getSignature().toShortString();
-        logger.info("===> in @Before: calling method: " + method);
+        log.info("===> in @Before: calling method: " + method);
 
         Object[] argsPointcut = joinPoint.getArgs();
 
         for (Object arg : argsPointcut) {
-            logger.info("===> argument: " + arg);
+            log.info("===> argument: " + arg);
         }
     }
 
@@ -52,9 +52,9 @@ public class LoggingAspect {
     public void after(JoinPoint joinPoint, Object result) {
 
         String method = joinPoint.getSignature().toShortString();
-        logger.info("===> in @AfterReturning: from method: " + method);
+        log.info("===> in @AfterReturning: from method: " + method);
 
-        logger.info("===> result: " + result);
+        log.info("===> result: " + result);
 
     }
 }
