@@ -4,8 +4,9 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Save Customer</title>
-    <link th:href="@{/css/style.css}" rel="stylesheet"/>
-    <link th:href="@{/css/add-customer-style.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
 </head>
 <body>
 <div id="wrapper">
@@ -21,43 +22,14 @@
     <div sec:authentication="principal.authorities"></div>
     <h3>Save Customer</h3>
     <form action="#" th:action="@{/customers/saveCustomer}" th:object="${customer}" method="post">
-        <input type="hidden" th:field="*{id}">
-        <table>
-            <tbody>
-            <tr>
-                <td><label>First Name</label></td>
-                <td>
-                    <input type="text" th:field="*{firstName}"/>
-                </td>
-            </tr>
-            <tr>
-                <td><label>Last Name</label></td>
-                <td>
-                    <input type="text" th:field="*{lastName}"/>
-                </td>
-            </tr>
-            <tr>
-                <td><label>Email</label></td>
-                <td>
-                    <input type="text" th:field="*{email}"/>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <input type="submit" value="Save" class="save"/>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <input type="hidden" th:field="*{id}"/>
+        <input type="text" th:field="*{firstName}" placeholder="First name" class="form-control mb-4 col-4"/>
+        <input type="text" th:field="*{lastName}" placeholder="Last name" class="form-control mb-4 col-4"/>
+        <input type="text" th:field="*{email}" placeholder="Email" class="form-control mb-4 col-4"/>
+        <button type="submit" class="btn btn-info col-2">Save</button>
     </form>
-    <div style="clear; both;"></div>
-    <p>
-        <a th:href="@{/customers/list}">Back to List</a>
-    </p>
+    <hr>
+    <a th:href="@{/customers/list}">Back to List</a>
 </div>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout"/>
-</form>
 </body>
 </html>

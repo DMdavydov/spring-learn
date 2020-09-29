@@ -9,26 +9,20 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-import java.util.logging.Logger;
-
 @Aspect
 @Slf4j
 @Component
 public class LoggingAspect {
 
-    @Pointcut("execution(* com.ddavydov.controller.*.*(..))")
-    public void forControllerPackage() {
+    @Pointcut("execution(* com.ddavydov.service.CustomerService.saveCustomer(..))")
+    public void forSaveMethod() {
     }
 
-    @Pointcut("execution(* com.ddavydov.service.*.*(..))")
-    public void forServicePackage() {
+    @Pointcut("execution(* com.ddavydov.service.CustomerService.deleteCustomer(..))")
+    public void forDeleteMethod() {
     }
 
-    @Pointcut("execution(* com.ddavydov.repository.*.*(..))")
-    public void forDaoPackage() {
-    }
-
-    @Pointcut("forControllerPackage() || forServicePackage() || forDaoPackage()")
+    @Pointcut("forSaveMethod() || forDeleteMethod()")
     public void forAppFlow() {
     }
 
