@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -42,8 +41,10 @@ public class CustomerController {
 
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute("customer") Customer customer) {
-
-        customerService.saveCustomer(customer);
+        if (customerService.getCustomer(customer.getId()) == null) {
+            customerService.saveCustomer(customer);
+        }
+        customerService.updateCustomer(customer);
 
         return "redirect:/customers/list";
     }

@@ -19,7 +19,7 @@
     User:
     <div sec:authentication="name"></div>
     Roles:
-    <div sec:authentication="principal.authorities"></div>
+    <div sec:authentication="authorities"></div>
     <h3>Save Customer</h3>
     <form action="#" th:action="@{/customers/saveCustomer}" th:object="${customer}" method="post">
         <input type="hidden" th:field="*{id}"/>

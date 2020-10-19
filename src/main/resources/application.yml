@@ -7,20 +7,15 @@ info:
     description: learning spring
     version: 1.0.0
 
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
-  datasource:
-    url: jdbc:mysql://localhost:3306/web_customer_tracker?useSSL=false&serverTimezone=UTC
-    username: springstudent
-    password: springstudent
-  data:
-    rest:
-      base-path: "/api"
-
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+
+keycloak:
+  auth-server-url: http://love-u2.ru:8180/auth/
+  realm: new
+  resource: app
+  public-client: true
+  ssl-required: none

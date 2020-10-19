@@ -19,7 +19,7 @@
     User:
     <div sec:authentication="name"></div>
     Roles:
-    <div sec:authentication="principal.authorities"></div>
+    <div sec:authentication="authorities"></div>
     <hr>
     <div id="content">
         <div sec:authorize="${hasAnyRole('ADMIN', 'MANAGER')}">
